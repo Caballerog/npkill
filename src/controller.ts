@@ -1,6 +1,5 @@
 import * as colors from 'colors';
 import * as emoji from 'node-emoji';
-import * as path from 'path';
 import * as keypress from 'keypress';
 
 import {
@@ -16,20 +15,20 @@ import {
   UI_HELP,
   UI_POSITIONS,
   VALID_KEYS,
-} from './constants/main.constants';
-import { HELP_MSGS, INFO_MSGS } from './constants/messages.constants';
-import { SPINNERS, SPINNER_INTERVAL } from './constants/spinner.constants';
+} from '@constants/main.constants';
+import { ConsoleService, FileService, SpinnerService } from '@services/index';
+import { HELP_MSGS, INFO_MSGS } from '@constants/messages.constants';
+import {
+  IConfig,
+  IFolder,
+  IKeysCommand,
+  IPosition,
+  IStats,
+} from '@interfaces/index';
+import { SPINNERS, SPINNER_INTERVAL } from '@constants/spinner.constants';
 import { Subject, interval } from 'rxjs';
 
-import { ConsoleService } from './services/console.service';
-import { FileService } from './services/files.service';
-import { IConfig } from './interfaces/config.interface';
-import { IFolder } from './interfaces/folder.interface';
-import { IKeysCommand } from './interfaces/command-keys.interface.js';
-import { IPosition } from './interfaces/ui-positions.interface';
-import { IStats } from './interfaces/stats.interface.js';
-import { OPTIONS } from './constants/cli.constants';
-import { SpinnerService } from './services/spinner.service';
+import { OPTIONS } from '@constants/cli.constants';
 import ansiEscapes from 'ansi-escapes';
 import { basename } from 'path';
 import { takeUntil } from 'rxjs/operators';
@@ -40,7 +39,6 @@ export class Controller {
   private stdout: NodeJS.WriteStream = process.stdout;
 
   private jobQueue: string[];
-  private jobsExecuting = 0;
 
   private nodeFolders: IFolder[] = [];
   private cursorPosY: number = MARGINS.ROW_RESULTS_START;
@@ -262,7 +260,7 @@ export class Controller {
 
     this.addNodeFolder(nodeFolder);
     try {
-      this.calculateFolderSize(nodeFolder).then(folder => {
+      this.calculateFolderSize(nodeFolder).then(() => {
         this.printStats();
         this.printFoldersSection();
       });

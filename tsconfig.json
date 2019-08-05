@@ -3,13 +3,17 @@
     "target": "es2015",
     "module": "commonjs",
     "sourceMap": false,
-    "declaration": true,
     "rootDir": "./src",
     "outDir": "./lib/",
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
-    "resolveJsonModule": true
+    "baseUrl": "./",
+    "paths": {
+      "@services/*": ["src/services/*"],
+      "@constants/*": ["src/constants/*"],
+      "@interfaces/*": ["src/interfaces/*"]
+    }
   },
   "include": ["src"]
 }

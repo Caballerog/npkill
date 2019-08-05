@@ -1,10 +1,9 @@
 import * as fs from 'fs';
 import * as getSize from 'get-folder-size';
 
+import { Observable } from 'rxjs';
 import { homedir } from 'os';
 import { resolve } from 'path';
-import { Observable } from 'rxjs';
-import { DECIMALS_SIZE } from '../constants/main.constants';
 
 export class FileService {
   getFileContentSync(path: string): string {
@@ -13,7 +12,7 @@ export class FileService {
   }
 
   getFolderSize(path: string): Promise<number> {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       getSize(path, (err, size) => {
         if (err) {
           throw err;

@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
+import { ConsoleService, FileService, SpinnerService } from '@services/index';
+
 import { Controller } from './controller';
-import { ConsoleService } from './services/console.service';
-import { FileService } from './services/files.service';
-import { SpinnerService } from './services/spinner.service';
 
 const controller = new Controller(
   new ConsoleService(),
